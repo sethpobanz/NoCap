@@ -1,5 +1,6 @@
 ﻿using BowlerAPI.Model;
 using System.Linq;
+using System.Collections.Generic;
 
 public class EFBowlerRepository : IBowlersRepository
 {
@@ -14,6 +15,7 @@ public class EFBowlerRepository : IBowlersRepository
     {
         var query = from bowler in _context.Bowlers
                     join team in _context.Teams on bowler.TeamId equals team.TeamId
+                    where team.TeamName == "Marlins" || team.TeamName == "Sharks" // Filter condition
                     select new Bowler
                     {
                         BowlerId = bowler.BowlerId,
@@ -31,5 +33,6 @@ public class EFBowlerRepository : IBowlersRepository
         return query.ToList();
     }
 }
+
 
 
